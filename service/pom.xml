@@ -5,6 +5,7 @@
     <modules>
         <module>service_edu</module>
         <module>service_oss</module>
+        <module>service_vod</module>
     </modules>
     <parent>
         <artifactId>parent_project</artifactId>
