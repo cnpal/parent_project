@@ -3,6 +3,7 @@ package com.pal.vod;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  * @Version: 1.0
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class) // 不操作数据库
-//@EnableDiscoveryClient // nacos注册
+@EnableDiscoveryClient // nacos注册
 @ComponentScan(basePackages = {"com.pal"})
 @CrossOrigin
 public class VodApplication {

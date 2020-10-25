@@ -2,9 +2,12 @@ package com.pal.eduservice.controller;
 
 
 import com.pal.commonutils.R;
+import com.pal.eduservice.client.VodClient;
 import com.pal.eduservice.entity.EduVideo;
 import com.pal.eduservice.service.EduVideoService;
+import com.pal.servicebase.exceptionhadler.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,8 +25,8 @@ public class EduVideoController {
     @Autowired
     private EduVideoService videoService;
 
-//    @Autowired // 注入vodClient
-//    private VodClient vodClient;
+    @Autowired // 注入vodClient
+    private VodClient vodClient;
 
     //1、添加小节
     @PostMapping("/addVideo")
@@ -39,13 +42,13 @@ public class EduVideoController {
         EduVideo eduVideo = videoService.getById(id);
         String sourceId = eduVideo.getVideoSourceId();
         // 判断小节里面是否有视频id
-//        if(!StringUtils.isEmpty(sourceId)){
-//            // 根据视频id，远程调用实现视频删除
-//            R r = vodClient.removeAliyunVideo(sourceId);
-//            if(r.getCode() == 20001) {
-//                throw new GuliException(20001, "删除视频失败。。熔断器");
-//            }
-//        }
+        if(!StringUtils.isEmpty(sourceId)){
+            // 根据视频id，远程调用实现视频删除
+            R r = vodClient.removeAlyVideo(sourceId);
+            if(r.getCode() == 20001) {
+                throw new MyException(20001, "删除视频失败。。熔断器");
+            }
+        }
         // 删除小节
         videoService.removeById(id);
         return R.ok();
